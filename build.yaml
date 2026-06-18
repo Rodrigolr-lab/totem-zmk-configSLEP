@@ -3,4 +3,7 @@ include:
     shield: totem_left
   - board: xiao_ble//zmk
     shield: totem_right
-# there is no settingsreset (needed) for the XIAO
+  # settings_reset firmware: flash to BOTH halves to clear stale BLE bonds
+  # (needed when switching firmware, e.g. from stock), then reflash normal fw.
+  - board: xiao_ble//zmk
+    shield: settings_reset
