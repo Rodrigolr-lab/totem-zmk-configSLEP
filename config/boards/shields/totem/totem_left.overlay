@@ -7,6 +7,9 @@
 #include "totem.dtsi"
 
 &kscan0 {
+    /* Stock Totem pin map. Index columns (col3=D9, col4=D8) restored after
+     * root-causing the dead columns to a mirrored XIAO footprint -- the fix is
+     * to mount the XIAO flipped on the PCB underside, NOT to remap pins. */
     col-gpios
         = <&xiao_d 4 GPIO_ACTIVE_HIGH>
         , <&xiao_d 5 GPIO_ACTIVE_HIGH>
