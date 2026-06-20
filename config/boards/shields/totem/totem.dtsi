@@ -31,12 +31,9 @@
         compatible = "zmk,kscan-gpio-matrix";
         label = "KSCAN";
         
-        diode-direction = "col2row"; 
-        row-gpios
-            = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            ;
+        diode-direction = "col2row";
+        /* row-gpios are defined per-half in the overlays: the left XIAO is
+         * mounted flipped (180deg about the short axis) to dodge the D9->GND_L
+         * PCB short, so its rows differ from the stock right half. */
     };
 };
