@@ -1,9 +1,14 @@
 include:
+  # Dongle = 3rd XIAO, the split CENTRAL, plugged into the host over USB.
+  - board: xiao_ble//zmk
+    shield: totem_dongle
+  # Both halves are now PERIPHERALS (left is no longer central; see Kconfig.defconfig).
   - board: xiao_ble//zmk
     shield: totem_left
   - board: xiao_ble//zmk
     shield: totem_right
-  # settings_reset firmware: flash to BOTH halves to clear stale BLE bonds
-  # (needed when switching firmware, e.g. from stock), then reflash normal fw.
+  # settings_reset firmware: flash to ALL THREE (dongle + both halves) to clear
+  # stale BLE bonds after the role change, then reflash normal fw to all three
+  # and power them together so the dongle re-pairs with both halves.
   - board: xiao_ble//zmk
     shield: settings_reset
