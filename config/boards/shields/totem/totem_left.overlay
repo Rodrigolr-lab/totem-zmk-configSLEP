@@ -7,19 +7,20 @@
 #include "totem.dtsi"
 
 &kscan0 {
-    /* Left XIAO mounted FLIPPED (180deg about the short axis) to dodge the
-     * D9->GND_L PCB short on the index column. Pin map follows the fold:
-     * each pad now sits under the mirrored XIAO D-pin (rows D0-3 -> D6,D5,D4,D3;
-     * cols D4,D5 -> D2,D1; D10/D9/D8 unchanged). Right half is still stock. */
+    /* TottemRodrV3: left XIAO mounted NORMALLY (stock), PCB short fixed in
+     * the new routing, so the flipped-XIAO workaround is gone. Stock Totem
+     * left-half pin map: rows D0-D3; cols D4,D5,D10,D9,D8 (mirror of the
+     * right half's D8,D9,D10,D5,D4). Rows are declared here (not in
+     * totem.dtsi) to match the per-half layout the right overlay uses. */
     row-gpios
-        = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         ;
     col-gpios
-        = <&xiao_d 2 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 1 GPIO_ACTIVE_HIGH>
+        = <&xiao_d 4 GPIO_ACTIVE_HIGH>
+        , <&xiao_d 5 GPIO_ACTIVE_HIGH>
         , <&xiao_d 10 GPIO_ACTIVE_HIGH>
         , <&xiao_d 9 GPIO_ACTIVE_HIGH>
         , <&xiao_d 8 GPIO_ACTIVE_HIGH>
