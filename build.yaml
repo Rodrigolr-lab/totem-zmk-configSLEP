@@ -2,6 +2,7 @@ include:
   # Dongle = 3rd XIAO, the split CENTRAL, plugged into the host over USB.
   - board: xiao_ble//zmk
     shield: totem_dongle
+    snippet: studio-rpc-usb-uart   # ZMK Studio live-editing over USB
   # Both halves are now PERIPHERALS (left is no longer central; see Kconfig.defconfig).
   - board: xiao_ble//zmk
     shield: totem_left

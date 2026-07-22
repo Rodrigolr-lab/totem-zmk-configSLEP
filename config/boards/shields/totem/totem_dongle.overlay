@@ -7,14 +7,22 @@
  * the host over USB. It has no physical keys, so it uses a mock kscan. Both
  * halves are peripherals (see Kconfig.defconfig). The matrix transform below
  * is an EXACT copy of totem.dtsi so key positions from the peripherals line up.
+ *
+ * A zmk,physical-layout is defined so ZMK Studio (https://studio.zmk.dev) can
+ * draw the board and edit the keymap live over USB. Its 36 keys are ordered to
+ * match default_transform exactly: row-major (left block then right block per
+ * row), then the 3 left thumbs, then the 3 right thumbs. Coordinates are in
+ * 1/100 key units (100 = 1u); a mild column stagger is just for a nicer render.
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <physical_layouts.dtsi>
 
 / {
     chosen {
         zmk,kscan = &mock_kscan;
-        zmk,matrix_transform = &default_transform;
+        /* No zmk,matrix_transform here: with a physical-layout present, ZMK
+         * takes the transform from totem_physical_layout below. */
     };
 
     mock_kscan: mock_kscan_0 {
@@ -34,5 +42,50 @@
                 RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)    RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
                         RC(3,2) RC(3,3) RC(3,4)            RC(3,5) RC(3,6) RC(3,7)
         >;
+    };
+
+    totem_physical_layout: totem_physical_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "TOTEM";
+        transform = <&default_transform>;
+
+        keys  //                       w    h    x    y   rot  rx  ry
+            = <&key_physical_attrs 100 100    0   24     0   0   0>
+            , <&key_physical_attrs 100 100  100   12     0   0   0>
+            , <&key_physical_attrs 100 100  200    0     0   0   0>
+            , <&key_physical_attrs 100 100  300   12     0   0   0>
+            , <&key_physical_attrs 100 100  400   24     0   0   0>
+            , <&key_physical_attrs 100 100  700   24     0   0   0>
+            , <&key_physical_attrs 100 100  800   12     0   0   0>
+            , <&key_physical_attrs 100 100  900    0     0   0   0>
+            , <&key_physical_attrs 100 100 1000   12     0   0   0>
+            , <&key_physical_attrs 100 100 1100   24     0   0   0>
+            , <&key_physical_attrs 100 100    0  124     0   0   0>
+            , <&key_physical_attrs 100 100  100  112     0   0   0>
+            , <&key_physical_attrs 100 100  200  100     0   0   0>
+            , <&key_physical_attrs 100 100  300  112     0   0   0>
+            , <&key_physical_attrs 100 100  400  124     0   0   0>
+            , <&key_physical_attrs 100 100  700  124     0   0   0>
+            , <&key_physical_attrs 100 100  800  112     0   0   0>
+            , <&key_physical_attrs 100 100  900  100     0   0   0>
+            , <&key_physical_attrs 100 100 1000  112     0   0   0>
+            , <&key_physical_attrs 100 100 1100  124     0   0   0>
+            , <&key_physical_attrs 100 100    0  224     0   0   0>
+            , <&key_physical_attrs 100 100  100  212     0   0   0>
+            , <&key_physical_attrs 100 100  200  200     0   0   0>
+            , <&key_physical_attrs 100 100  300  212     0   0   0>
+            , <&key_physical_attrs 100 100  400  224     0   0   0>
+            , <&key_physical_attrs 100 100  700  224     0   0   0>
+            , <&key_physical_attrs 100 100  800  212     0   0   0>
+            , <&key_physical_attrs 100 100  900  200     0   0   0>
+            , <&key_physical_attrs 100 100 1000  212     0   0   0>
+            , <&key_physical_attrs 100 100 1100  224     0   0   0>
+            , <&key_physical_attrs 100 100  200  330     0   0   0>
+            , <&key_physical_attrs 100 100  300  330     0   0   0>
+            , <&key_physical_attrs 100 100  400  330     0   0   0>
+            , <&key_physical_attrs 100 100  700  330     0   0   0>
+            , <&key_physical_attrs 100 100  800  330     0   0   0>
+            , <&key_physical_attrs 100 100  900  330     0   0   0>
+            ;
     };
 };
