@@ -1,15 +1,35 @@
 # Copyright (c) 2022 The ZMK Contributors
 # SPDX-License-Identifier: MIT
 
+# Standard 2-piece split, NO DONGLE: the LEFT half is the CENTRAL. It runs the
+# keymap and talks to the host over USB/BLE; the RIGHT half is its one peripheral.
 if SHIELD_TOTEM_LEFT
 
 config ZMK_KEYBOARD_NAME
     default "TOTEM"
 
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+# One peripheral: the right half.
+config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+    default 1
+
+# Room for the peripheral link plus host BT profiles (6 - 1 = 5 profiles).
+config BT_MAX_CONN
+    default 6
+
+config BT_MAX_PAIRED
+    default 6
+
 endif
 
-# Dongle mode: the dongle is the CENTRAL (USB to host), and BOTH halves are
-# peripherals. Note the left half is intentionally NOT central here.
+# OPTIONAL dongle mode — NOT built by default (see build.yaml, where the
+# totem_dongle target is commented out).
+#
+# WARNING: only ever run ONE central at a time. If you re-enable the dongle
+# build, first drop ZMK_SPLIT_ROLE_CENTRAL from the SHIELD_TOTEM_LEFT block
+# above, or the left half and the dongle will both try to own the right half.
 if SHIELD_TOTEM_DONGLE
 
 config ZMK_KEYBOARD_NAME
@@ -22,7 +42,6 @@ config ZMK_SPLIT_ROLE_CENTRAL
 config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
     default 2
 
-# Room for both peripheral links plus BT profiles to the host.
 config BT_MAX_CONN
     default 6
 

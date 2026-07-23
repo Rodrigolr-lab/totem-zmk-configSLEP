@@ -1,15 +1,21 @@
 include:
-  # Dongle = 3rd XIAO, the split CENTRAL, plugged into the host over USB.
-  - board: xiao_ble//zmk
-    shield: totem_dongle
-    snippet: studio-rpc-usb-uart   # ZMK Studio live-editing over USB
-  # Both halves are now PERIPHERALS (left is no longer central; see Kconfig.defconfig).
+  # LEFT half = the split CENTRAL. It runs the keymap and connects to the host
+  # over USB or Bluetooth. ZMK Studio always runs on the central, so the
+  # studio-rpc-usb-uart snippet lives here now (it used to be on the dongle).
   - board: xiao_ble//zmk
     shield: totem_left
+    snippet: studio-rpc-usb-uart
+  # RIGHT half = peripheral; it just scans keys and reports them to the left.
   - board: xiao_ble//zmk
     shield: totem_right
-  # settings_reset firmware: flash to ALL THREE (dongle + both halves) to clear
-  # stale BLE bonds after the role change, then reflash normal fw to all three
-  # and power them together so the dongle re-pairs with both halves.
+  # settings_reset firmware: after this role change the old BLE bonds are stale,
+  # so flash this to BOTH halves first, then flash the normal firmware to both
+  # and power them together so the left half re-pairs with the right.
   - board: xiao_ble//zmk
     shield: settings_reset
+  # OPTIONAL dongle mode — disabled so there is exactly one central.
+  # Before re-enabling, read the warning in Kconfig.defconfig: you must also
+  # remove ZMK_SPLIT_ROLE_CENTRAL from the SHIELD_TOTEM_LEFT block.
+  # - board: xiao_ble//zmk
+  #   shield: totem_dongle
+  #   snippet: studio-rpc-usb-uart
