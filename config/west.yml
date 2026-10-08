@@ -5,7 +5,7 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: 5b51501fead672c41b5cfb396f3dafe0894bf4e9  # pinned 2026-10-08 (upstream main, 26 Sep 2026); bump deliberately
       import: app/west.yml
   self:
     path: config
